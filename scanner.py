@@ -40,7 +40,7 @@ for stock in symbols:
 info = ticker.info
 market_cap = info.get("marketCap", 0) / 10000000  # ₹ Crore
 
-        if 44 <= down <= 46:
+        if 44 <= down <= 46 and market_cap >= 5000:
             results.append(f"{stock} : {down:.2f}%")
 
     except Exception as e:
