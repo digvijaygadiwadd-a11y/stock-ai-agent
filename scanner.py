@@ -58,11 +58,17 @@ for stock in symbols:
     and market_cap >= 5000
     and stock not in alerted
 ):
-            results.append(
-                f"📈 {stock}\n"
-                f"⬇️ Down from ATH: {down:.2f}%\n"
-                f"💰 Market Cap: ₹{market_cap:,.0f} Cr\n"
-            )
+            if (
+    44 <= down <= 46
+    and market_cap >= 5000
+    and stock not in alerted
+):
+    results.append(
+        f"📈 {stock}\n"
+        f"⬇️ Down from ATH: {down:.2f}%\n"
+        f"💰 Market Cap: ₹{market_cap:,.0f} Cr\n"
+    )
+
     new_alerted.add(stock)
 
     except Exception as e:
