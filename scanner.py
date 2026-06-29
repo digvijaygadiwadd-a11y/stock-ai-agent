@@ -35,6 +35,10 @@ for stock in symbols:
         current = float(close.iloc[-1])
 
         down = ((ath - current) / ath) * 100
+        
+        ticker = yf.Ticker(stock)
+info = ticker.info
+market_cap = info.get("marketCap", 0) / 10000000  # ₹ Crore
 
         if 44 <= down <= 46:
             results.append(f"{stock} : {down:.2f}%")
