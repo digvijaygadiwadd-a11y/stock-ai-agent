@@ -76,5 +76,9 @@ if results:
 else:
     message = "❌ No stocks near the 45% ATH zone today."
 
+with open("alerted.txt", "w") as f:
+    for s in sorted(alerted | new_alerted):
+        f.write(s + "\n")
+
 send_telegram(message)
 print(message)
