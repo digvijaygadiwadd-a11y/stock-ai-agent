@@ -2,9 +2,10 @@ import json
 import requests
 import yfinance as yf
 from nselib import capital_market
+from datetime import datetime
 
-BOT_TOKEN = "8729984501:AAGxp-9ceA4tBGVPm0fHAr--bgkzTbke8zA"
-CHAT_ID = "499306024"
+BOT_TOKEN = "YOUR_BOT_TOKEN"
+CHAT_ID = "YOUR_CHAT_ID"
 
 
 def send_telegram(msg):
@@ -12,8 +13,9 @@ def send_telegram(msg):
     requests.post(url, data={"chat_id": CHAT_ID, "text": msg})
 
 
-# For testing, scan only first 100 NSE stocks.
-# Later change [:100] to nothing to scan all stocks.
+print(f"Scan started at {datetime.now()}")
+
+# Scan ALL NSE stocks
 eq = capital_market.equity_list()
 symbols = (eq["SYMBOL"] + ".NS").tolist()
 
@@ -43,7 +45,7 @@ for stock in symbols:
         high = df["High"]
         close = df["Close"]
 
-        # Handle MultiIndex columns if returned by yfinance
+        # Handle MultiIndex columns if returned
         if hasattr(high, "columns"):
             high = high.iloc[:, 0]
 
@@ -75,20 +77,26 @@ for stock in symbols:
     except Exception as e:
         print(f"Error in {stock}: {e}")
 
-# Create Telegram message
+today = datetime.now().strftime("%d-%b-%Y")
+
 if results:
     message = (
-        "🚀 45% ATH STRATEGY ALERT 🚀\n\n"
+        f"🚀 45% ATH STRATEGY ALERT 🚀\n"
+        f"📅 {today}\n\n"
         + "\n".join(results)
         + f"\n\nTotal Stocks Found: {len(results)}"
     )
 else:
-    message = "❌ No stocks near the 45% ATH zone today."
+    message = (
+        f"📅 {today}\n"
+        "❌ No stocks near the 45% ATH zone today."
+    )
 
 # Save alerted stocks
 with open("alerted.json", "w") as f:
     json.dump(sorted(alerted | new_alerted), f)
 
-# Send Telegram message
 send_telegram(message)
 print(message)
+
+print(f"Scan finished at {datetime.now()}")
