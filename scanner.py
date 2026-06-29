@@ -8,7 +8,10 @@ def send_telegram(msg):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     requests.post(url, data={"chat_id": CHAT_ID, "text": msg})
 
-symbols = ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS"]
+from nselib import capital_market
+
+eq = capital_market.equity_list()
+symbols = (eq["SYMBOL"] + ".NS").tolist()
 
 results = []
 
