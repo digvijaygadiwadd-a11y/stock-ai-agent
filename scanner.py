@@ -21,19 +21,10 @@ for stock in symbols:
     if df.empty:
         continue
 
- ath = float(df["High"].max())
-current = float(df["Close"].iloc[-1])
+    ath = float(df["High"].max())
+    current = float(df["Close"].iloc[-1])
 
-down = float(((ath - current) / ath) * 100)
+    down = float(((ath - current) / ath) * 100)
 
-if 44 <= down <= 46:
-        results.append((stock, round(down, 2)))
-
-if results:
-    msg = "📊 STOCKS NEAR 45% BELOW ATH\n\n"
-    for r in results:
-        msg += f"{r[0]} → {r[1]}%\n"
-
-    send_telegram(msg)
-else:
-    send_telegram("No stocks in 45% zone today")
+    if 44 <= down <= 46:
+        print(stock, down)
