@@ -3,8 +3,8 @@ import requests
 import yfinance as yf
 from nselib import capital_market
 
-BOT_TOKEN = "YOUR_BOT_TOKEN"
-CHAT_ID = "YOUR_CHAT_ID"
+BOT_TOKEN = "8729984501:AAGxp-9ceA4tBGVPm0fHAr--bgkzTbke8zA"
+CHAT_ID = "499306024"
 
 
 def send_telegram(msg):
