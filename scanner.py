@@ -51,9 +51,13 @@ market_cap = info.get("marketCap", 0) / 10000000  # ₹ Crore
         print(f"Error in {stock}: {e}")
 
 if results:
-    message = "📊 Stocks near 45% below ATH:\n\n" + "\n".join(results)
+    message = (
+        "🚀 45% ATH STRATEGY ALERT 🚀\n\n"
+        + "\n".join(results)
+        + f"\n\nTotal Stocks Found: {len(results)}"
+    )
 else:
-    message = "No stocks near 45% below ATH today."
+    message = "❌ No stocks near the 45% ATH zone today."
 
 send_telegram(message)
 print(message)
