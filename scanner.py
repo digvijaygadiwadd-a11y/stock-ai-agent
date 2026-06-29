@@ -52,7 +52,11 @@ for stock in symbols:
         info = ticker.info
         market_cap = info.get("marketCap", 0) / 10000000  # ₹ Crore
 
-        if 44 <= down <= 46 and market_cap >= 5000:
+        if (
+    44 <= down <= 46
+    and market_cap >= 5000
+    and stock not in alerted
+):
             results.append(
                 f"📈 {stock}\n"
                 f"⬇️ Down from ATH: {down:.2f}%\n"
