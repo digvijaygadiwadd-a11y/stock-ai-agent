@@ -18,9 +18,11 @@ symbols = (eq["SYMBOL"] + ".NS").tolist()[:100]
 
 results = []
 
+import json
+
 try:
-    with open("alerted.txt", "r") as f:
-        alerted = set(f.read().splitlines())
+    with open("alerted.json", "r") as f:
+        alerted = set(json.load(f))
 except:
     alerted = set()
 
