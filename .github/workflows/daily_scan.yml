@@ -23,3 +23,10 @@ jobs:
 
       - name: Run scanner
         run: python scanner.py
+        - name: Commit updated alerts
+  run: |
+    git config --global user.name "github-actions"
+    git config --global user.email "github-actions@github.com"
+    git add alerted.json
+    git commit -m "Update alerted stocks" || echo "No changes"
+    git push
