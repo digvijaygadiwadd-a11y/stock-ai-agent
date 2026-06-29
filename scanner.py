@@ -1,9 +1,10 @@
+import json
 import requests
 import yfinance as yf
 from nselib import capital_market
 
-BOT_TOKEN = "8729984501:AAGxp-9ceA4tBGVPm0fHAr--bgkzTbke8zA"
-CHAT_ID = "499306024"
+BOT_TOKEN = "YOUR_BOT_TOKEN"
+CHAT_ID = "YOUR_CHAT_ID"
 
 
 def send_telegram(msg):
@@ -12,13 +13,13 @@ def send_telegram(msg):
 
 
 # For testing, scan only first 100 NSE stocks.
-# Later you can remove [:100] to scan all stocks.
+# Later change [:100] to nothing to scan all stocks.
 eq = capital_market.equity_list()
 symbols = (eq["SYMBOL"] + ".NS").tolist()[:100]
 
 results = []
-import json
 
+# Load previously alerted stocks
 try:
     with open("alerted.json", "r") as f:
         alerted = set(json.load(f))
@@ -29,7 +30,12 @@ new_alerted = set()
 
 for stock in symbols:
     try:
-        df = yf.download(stock, period="max", progress=False)
+        df = yf.download(
+            stock,
+            period="max",
+            progress=False,
+            auto_adjust=False
+        )
 
         if df.empty:
             continue
@@ -53,22 +59,23 @@ for stock in symbols:
         info = ticker.info
         market_cap = info.get("marketCap", 0) / 10000000  # ₹ Crore
 
-       if (
-    44 <= down <= 46
-    and market_cap >= 5000
-    and stock not in alerted
-):
-    results.append(
-        f"📈 {stock}\n"
-        f"⬇️ Down from ATH: {down:.2f}%\n"
-        f"💰 Market Cap: ₹{market_cap:,.0f} Cr\n"
-    )
+        if (
+            44 <= down <= 46
+            and market_cap >= 5000
+            and stock not in alerted
+        ):
+            results.append(
+                f"📈 {stock}\n"
+                f"⬇️ Down from ATH: {down:.2f}%\n"
+                f"💰 Market Cap: ₹{market_cap:,.0f} Cr\n"
+            )
 
-    new_alerted.add(stock)
+            new_alerted.add(stock)
 
     except Exception as e:
         print(f"Error in {stock}: {e}")
 
+# Create Telegram message
 if results:
     message = (
         "🚀 45% ATH STRATEGY ALERT 🚀\n\n"
@@ -78,8 +85,10 @@ if results:
 else:
     message = "❌ No stocks near the 45% ATH zone today."
 
+# Save alerted stocks
 with open("alerted.json", "w") as f:
     json.dump(sorted(alerted | new_alerted), f)
 
+# Send Telegram message
 send_telegram(message)
 print(message)
