@@ -21,8 +21,17 @@ for stock in symbols:
     if df.empty:
         continue
 
-    ath = float(df["High"].max())
-    current = float(df["Close"].iloc[-1])
+   high = df["High"]
+close = df["Close"]
+
+if hasattr(high, "columns"):
+    high = high.iloc[:, 0]
+
+if hasattr(close, "columns"):
+    close = close.iloc[:, 0]
+
+ath = float(high.max())
+current = float(close.iloc[-1])
 
     down = float(((ath - current) / ath) * 100)
 
