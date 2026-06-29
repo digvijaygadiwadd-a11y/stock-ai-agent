@@ -15,7 +15,7 @@ def send_telegram(msg):
 # For testing, scan only first 100 NSE stocks.
 # Later change [:100] to nothing to scan all stocks.
 eq = capital_market.equity_list()
-symbols = (eq["SYMBOL"] + ".NS").tolist()[:100]
+symbols = (eq["SYMBOL"] + ".NS").tolist()
 
 results = []
 
