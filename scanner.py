@@ -21,12 +21,12 @@ for stock in symbols:
     if df.empty:
         continue
 
-    ath = df["High"].max()
-    current = df["Close"].iloc[-1]
+ ath = float(df["High"].max())
+current = float(df["Close"].iloc[-1])
 
-    down = ((ath - current) / ath) * 100
+down = float(((ath - current) / ath) * 100)
 
-    if 44 <= down <= 46:
+if 44 <= down <= 46:
         results.append((stock, round(down, 2)))
 
 if results:
