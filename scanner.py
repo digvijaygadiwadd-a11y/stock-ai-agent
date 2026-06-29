@@ -18,6 +18,14 @@ symbols = (eq["SYMBOL"] + ".NS").tolist()[:100]
 
 results = []
 
+try:
+    with open("alerted.txt", "r") as f:
+        alerted = set(f.read().splitlines())
+except:
+    alerted = set()
+
+new_alerted = set()
+
 for stock in symbols:
     try:
         df = yf.download(stock, period="max", progress=False)
