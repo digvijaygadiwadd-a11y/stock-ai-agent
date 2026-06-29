@@ -62,6 +62,7 @@ for stock in symbols:
                 f"⬇️ Down from ATH: {down:.2f}%\n"
                 f"💰 Market Cap: ₹{market_cap:,.0f} Cr\n"
             )
+    new_alerted.add(stock)
 
     except Exception as e:
         print(f"Error in {stock}: {e}")
