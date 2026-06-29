@@ -27,16 +27,6 @@ except:
 
 new_alerted = set()
 
-import json
-
-try:
-    with open("alerted.json", "r") as f:
-        alerted = set(json.load(f))
-except:
-    alerted = set()
-
-new_alerted = set()
-
 for stock in symbols:
     try:
         df = yf.download(stock, period="max", progress=False)
