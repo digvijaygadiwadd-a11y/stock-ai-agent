@@ -11,7 +11,7 @@ def load_alerts():
         try:
             with open(ALERT_FILE, "r") as f:
                 return json.load(f)
-        except:
+        except Exception:
             return {}
     return {}
 
@@ -26,7 +26,6 @@ def find_signal(stock):
     alerts = load_alerts()
 
     try:
-
         df = yf.download(
             stock,
             period="10y",
@@ -57,16 +56,17 @@ def find_signal(stock):
         signal_low = None
         signal_date = None
 
+        # Ignore current incomplete weekly candle
         for i in range(len(df) - 1):
 
-            # Latest qualifying candle replaces previous one
+            # Latest qualifying candle replaces previous signal
             if high.iloc[i] < ema5.iloc[i]:
 
                 signal_high = float(high.iloc[i])
                 signal_low = float(low.iloc[i])
                 signal_date = str(df.index[i].date())
 
-            # Wait for breakout
+            # Breakout check
             elif signal_high is not None:
 
                 if high.iloc[i] > signal_high:
