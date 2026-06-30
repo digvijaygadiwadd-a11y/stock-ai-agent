@@ -3,6 +3,9 @@ name: Breakout Monitor
 on:
   workflow_dispatch:
 
+  schedule:
+    - cron: "*/5 4-10 * * 1-5"
+
 jobs:
   breakout:
     runs-on: ubuntu-latest
