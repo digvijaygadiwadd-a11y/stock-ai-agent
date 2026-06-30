@@ -24,8 +24,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run scanner
-        run: python scanner.py
+      - name: Run Weekly 5 EMA Agent
+        run: python weekly_5ema.py
 
       - name: Commit updated alerts
         run: |
