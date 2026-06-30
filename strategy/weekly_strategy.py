@@ -1,7 +1,7 @@
 import yfinance as yf
 import json
 import os
-
+from utils.telegram_sender import send_message
 
 ALERT_FILE = "alerted.json"
 
@@ -73,13 +73,23 @@ def find_signal(stock):
 
                     if stock not in alerts:
 
-                        print("\n===================================")
-                        print(f"🚀 BUY SIGNAL : {stock}")
-                        print(f"Signal Date : {signal_date}")
-                        print(f"Entry       : {signal_high}")
-                        print(f"Stop Loss   : {signal_low}")
-                        print(f"Breakout On : {str(df.index[i].date())}")
-                        print("===================================\n")
+                        message = f"""
+🚀 WEEKLY 5 EMA BREAKOUT
+
+Stock : {stock}
+
+Entry : ₹{signal_high}
+
+Stop Loss : ₹{signal_low}
+
+Signal Date : {signal_date}
+
+Breakout Date : {str(df.index[i].date())}
+"""
+
+print(message)
+
+send_message(message)
 
                         alerts[stock] = {
                             "signal_date": signal_date,
