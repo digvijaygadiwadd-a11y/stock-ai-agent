@@ -31,3 +31,4 @@ jobs:
           git add waiting_signals.json
           git commit -m "Update waiting signals" || echo "No changes"
           git push
+
