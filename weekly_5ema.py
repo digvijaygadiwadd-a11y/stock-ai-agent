@@ -2,12 +2,17 @@ import yfinance as yf
 
 stock = "RELIANCE.NS"
 
-# Download weekly data
+print("Downloading Weekly Data...")
+
 df = yf.download(
     stock,
     period="10y",
     interval="1wk",
-    progress=False
+    progress=False,
+    auto_adjust=False
 )
 
-print(df.tail())
+if df.empty:
+    print("No data found!")
+else:
+    print(df.tail(10))
