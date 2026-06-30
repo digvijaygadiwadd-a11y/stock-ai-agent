@@ -75,7 +75,7 @@ def find_weekly_setup(stock):
         waiting[stock] = latest_signal
         save_waiting(waiting)
 
-        print(f"{stock} -> Setup Saved")Ignore the current unfinished weekly candle
-     # for i in range(len(df) - 1):
+        print(f"{stock} -> Setup Saved")
+    
 
     
