@@ -10,6 +10,11 @@ def load_waiting():
         return json.load(f)
 
 
+def save_waiting(data):
+    with open(WAITING_FILE, "w") as f:
+        json.dump(data, f, indent=4)
+
+
 def get_latest_price(stock):
     df = yf.download(
         stock,
@@ -34,27 +39,41 @@ waiting = load_waiting()
 
 print(f"Found {len(waiting)} waiting stocks.\n")
 
-for stock, data in waiting.items():
+changed = False
 
-    print(f"\nChecking {stock}")
+for stock, data in waiting.items():
 
     latest_price = get_latest_price(stock)
 
     if latest_price is None:
-        print("Price not available")
         continue
 
-    print(f"Current Price : {latest_price}")
-    print(f"Entry         : {data['entry']}")
-    print(f"Stop Loss     : {data['stop_loss']}")
-    print(f"Status        : {data['status']}")
+    print(f"{stock}  Current={latest_price}  Entry={data['entry']}")
 
     if (
         data["status"] == "WAITING"
         and latest_price >= data["entry"]
     ):
-        print(f"BUY SIGNAL -> {stock}")
-    else:
-        print("No Breakout")
 
-    print("----------------------------")
+        message = f"""
+🚀 BUY SIGNAL
+
+Stock : {stock}
+
+Entry : ₹{data['entry']}
+
+Current Price : ₹{latest_price}
+
+Stop Loss : ₹{data['stop_loss']}
+"""
+
+        send_message(message)
+
+        data["status"] = "BOUGHT"
+
+        changed = True
+
+        print(f"BUY SENT -> {stock}")
+
+if changed:
+    save_waiting(waiting)
