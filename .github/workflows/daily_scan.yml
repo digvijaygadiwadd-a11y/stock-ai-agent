@@ -25,4 +25,15 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Weekly 5 EMA Agent
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python weekly_5ema.py
+
+      - name: Commit Updated Alerts
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add alerted.json
+          git commit -m "Update alerted stocks" || echo "No changes"
+          git push
