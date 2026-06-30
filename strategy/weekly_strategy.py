@@ -26,12 +26,13 @@ def find_signal(stock):
     alerts = load_alerts()
 
     try:
+
         df = yf.download(
             stock,
             period="10y",
             interval="1wk",
             progress=False,
-            auto_adjust=False,
+            auto_adjust=False
         )
 
         if df.empty:
@@ -56,17 +57,16 @@ def find_signal(stock):
         signal_low = None
         signal_date = None
 
-        # Ignore current unfinished week
         for i in range(len(df) - 1):
 
-            # New signal replaces old signal
+            # Latest qualifying candle replaces previous one
             if high.iloc[i] < ema5.iloc[i]:
 
                 signal_high = float(high.iloc[i])
                 signal_low = float(low.iloc[i])
                 signal_date = str(df.index[i].date())
 
-            # Check breakout
+            # Wait for breakout
             elif signal_high is not None:
 
                 if high.iloc[i] > signal_high:
@@ -78,18 +78,18 @@ def find_signal(stock):
 
 Stock : {stock}
 
-Entry : ₹{signal_high}
+Entry : ₹{signal_high:.2f}
 
-Stop Loss : ₹{signal_low}
+Stop Loss : ₹{signal_low:.2f}
 
 Signal Date : {signal_date}
 
 Breakout Date : {str(df.index[i].date())}
 """
 
-print(message)
+                        print(message)
 
-send_message(message)
+                        send_message(message)
 
                         alerts[stock] = {
                             "signal_date": signal_date,
@@ -102,5 +102,5 @@ send_message(message)
 
                     return
 
-    except Exception:
-        print(f"Failed : {stock}")
+    except Exception as e:
+        print(f"{stock} FAILED : {e}")
