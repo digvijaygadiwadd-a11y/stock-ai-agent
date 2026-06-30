@@ -44,20 +44,20 @@ for stock, data in waiting.items():
         print("Price not available")
         continue
 
-    print(f"Current Price : {latest_price}")
-print(f"Entry         : {data['entry']}")
-print(f"Stop Loss     : {data['stop_loss']}")
-print(f"Status        : {data['status']}")
+       print(f"Current Price : {latest_price}")
+    print(f"Entry         : {data['entry']}")
+    print(f"Stop Loss     : {data['stop_loss']}")
+    print(f"Status        : {data['status']}")
 
-if (
-    data["status"] == "WAITING"
-    and latest_price >= data["entry"]
-):
+    if (
+        data["status"] == "WAITING"
+        and latest_price >= data["entry"]
+    ):
 
-    print(f"BUY SIGNAL -> {stock}")
+        print(f"BUY SIGNAL -> {stock}")
 
-else:
+    else:
 
-    print("No Breakout")
+        print("No Breakout")
 
-print("----------------------------")
+    print("----------------------------")
