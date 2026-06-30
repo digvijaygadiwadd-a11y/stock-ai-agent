@@ -1,1 +1,1 @@
-print("Weekly 5 EMA Agent Started")
+print("🚀 Weekly 5 EMA Agent Started Successfully")
