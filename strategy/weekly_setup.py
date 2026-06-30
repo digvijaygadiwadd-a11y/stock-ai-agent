@@ -40,8 +40,18 @@ def find_weekly_setup(stock):
 
     latest_signal = None
 
-    # Ignore the current unfinished weekly candle
+    #     # Ignore the current unfinished weekly candle
     for i in range(len(df) - 1):
+
+        print(
+            stock,
+            df.index[i].date(),
+            "Open =", float(df["Open"].iloc[i]),
+            "High =", float(df["High"].iloc[i]),
+            "Low =", float(df["Low"].iloc[i]),
+            "Close =", float(df["Close"].iloc[i]),
+            "EMA =", round(float(ema5.iloc[i]), 2)
+        )
 
         # Entire candle must be below EMA
         if (
@@ -50,6 +60,8 @@ def find_weekly_setup(stock):
             and df["Low"].iloc[i] < ema5.iloc[i]
             and df["Close"].iloc[i] < ema5.iloc[i]
         ):
+
+            print("VALID SIGNAL FOUND:", stock, df.index[i].date())
 
             latest_signal = {
                 "entry": float(df["High"].iloc[i]),
@@ -63,4 +75,7 @@ def find_weekly_setup(stock):
         waiting[stock] = latest_signal
         save_waiting(waiting)
 
-        print(f"{stock} -> Setup Saved")
+        print(f"{stock} -> Setup Saved")Ignore the current unfinished weekly candle
+     # for i in range(len(df) - 1):
+
+    
