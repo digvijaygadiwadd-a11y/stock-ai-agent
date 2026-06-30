@@ -26,6 +26,7 @@ def find_signal(stock):
     alerts = load_alerts()
 
     try:
+
         df = yf.download(
             stock,
             period="10y",
@@ -56,10 +57,10 @@ def find_signal(stock):
         signal_low = None
         signal_date = None
 
-        # Ignore current incomplete weekly candle
+        # Ignore current unfinished weekly candle
         for i in range(len(df) - 1):
 
-            # Latest qualifying candle replaces previous signal
+            # Latest signal replaces previous one
             if high.iloc[i] < ema5.iloc[i]:
 
                 signal_high = float(high.iloc[i])
