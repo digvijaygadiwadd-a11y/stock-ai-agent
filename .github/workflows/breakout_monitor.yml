@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -22,4 +24,18 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Breakout Monitor
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python breakout_monitor.py
+
+      - name: Commit updated waiting signals
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git add waiting_signals.json
+
+          git commit -m "Update waiting signal status" || echo "No changes to commit"
+
+          git push
