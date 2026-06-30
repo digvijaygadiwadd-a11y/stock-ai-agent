@@ -6,8 +6,11 @@ WAITING_FILE = "waiting_signals.json"
 
 
 def load_waiting():
-    def get_latest_price(stock):
+    with open(WAITING_FILE, "r") as f:
+        return json.load(f)
 
+
+def get_latest_price(stock):
     df = yf.download(
         stock,
         period="5d",
@@ -25,8 +28,6 @@ def load_waiting():
         close = close.iloc[:, 0]
 
     return float(close.iloc[-1])
-    with open(WAITING_FILE, "r") as f:
-        return json.load(f)
 
 
 waiting = load_waiting()
