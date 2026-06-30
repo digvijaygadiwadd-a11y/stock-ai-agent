@@ -1,4 +1,6 @@
 import json
+import yfinance as yf
+from utils.telegram_sender import send_message
 
 WAITING_FILE = "waiting_signals.json"
 
