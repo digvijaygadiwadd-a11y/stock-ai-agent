@@ -50,23 +50,24 @@ for stock, data in waiting.items():
         low = low.iloc[:, 0]
 
     yesterday_close = float(close.iloc[-2])
-    today_close = float(close.iloc[-1])
+    current_price = float(close.iloc[-1])
     today_low = float(low.iloc[-1])
 
     entry = float(data["entry"])
     stop = float(data["stop_loss"])
 
     print(
-        f"{stock} | Yesterday={yesterday_close} | "
-        f"Today={today_close} | "
+        f"{stock} | "
+        f"Yesterday={yesterday_close} | "
+        f"CMP={current_price} | "
         f"Low={today_low} | "
         f"Entry={entry} | "
         f"SL={stop}"
     )
 
-    # ==========================================
+    # ==========================
     # FAILED
-    # ==========================================
+    # ==========================
 
     if today_low <= stop:
 
@@ -77,7 +78,7 @@ Stock : {stock}
 
 Entry : ₹{entry}
 
-Today's Low : ₹{today_low}
+CMP : ₹{current_price}
 
 Stop Loss : ₹{stop}
 """
@@ -92,11 +93,11 @@ Stop Loss : ₹{stop}
 
         continue
 
-    # ==========================================
+    # ==========================
     # TRUE BREAKOUT
-    # ==========================================
+    # ==========================
 
-    if yesterday_close < entry and today_close >= entry:
+    if yesterday_close < entry and current_price >= entry:
 
         message = f"""
 🚀 BUY SIGNAL
@@ -105,7 +106,7 @@ Stock : {stock}
 
 Entry : ₹{entry}
 
-Today's Close : ₹{today_close}
+CMP : ₹{current_price}
 
 Stop Loss : ₹{stop}
 """
