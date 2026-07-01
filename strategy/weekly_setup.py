@@ -77,14 +77,38 @@ def find_weekly_setup(stock):
             if breakout_happened:
                 continue
 
-            print("VALID WAITING SETUP:", stock, df.index[i].date())
+# Get latest market price
+current_df = yf.download(
+    stock,
+    period="5d",
+    interval="1d",
+    progress=False,
+    auto_adjust=False
+)
 
-            latest_signal = {
-                "entry": entry,
-                "stop_loss": float(df["Low"].iloc[i]),
-                "signal_date": str(df.index[i].date()),
-                "status": "WAITING"
-            }
+if current_df.empty:
+    continue
+
+current_close = current_df["Close"]
+
+if hasattr(current_close, "columns"):
+    current_close = current_close.iloc[:, 0]
+
+current_price = float(current_close.iloc[-1])
+
+# Ignore stocks whose entry has already been crossed
+if current_price >= entry:
+    print(f"ENTRY ALREADY TRIGGERED -> {stock}")
+    continue
+
+print(f"WAITING SETUP -> {stock}")
+
+latest_signal = {
+    "entry": entry,
+    "stop_loss": float(df["Low"].iloc[i]),
+    "signal_date": str(df.index[i].date()),
+    "status": "WAITING"
+}
 
     if latest_signal is not None:
 
