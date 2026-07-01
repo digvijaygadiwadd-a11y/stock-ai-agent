@@ -3,13 +3,13 @@
         "entry": 15.699999809265137,
         "stop_loss": 13.899999618530273,
         "signal_date": "2026-05-18",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "ABAN.NS": {
         "entry": 13.869999885559082,
         "stop_loss": 13.869999885559082,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "ABCOTS.NS": {
         "entry": 299.0,
@@ -39,7 +39,7 @@
         "entry": 3.109999895095825,
         "stop_loss": 2.990000009536743,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "AQYLON.NS": {
         "entry": 48.400001525878906,
@@ -57,7 +57,7 @@
         "entry": 66.19999694824219,
         "stop_loss": 62.560001373291016,
         "signal_date": "2026-05-04",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "AUSOMENT.NS": {
         "entry": 117.06999969482422,
@@ -69,7 +69,7 @@
         "entry": 1010.0,
         "stop_loss": 941.2000122070312,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "BAJAJELEC.NS": {
         "entry": 343.8500061035156,
@@ -81,19 +81,19 @@
         "entry": 4315.0,
         "stop_loss": 4194.0,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "BESTAGRO.NS": {
         "entry": 16.850000381469727,
         "stop_loss": 15.8100004196167,
         "signal_date": "2026-06-01",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "BILVYAPAR.NS": {
         "entry": 4.860000133514404,
         "stop_loss": 4.860000133514404,
         "signal_date": "2026-05-18",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "BRITANNIA.NS": {
         "entry": 5370.0,
@@ -117,7 +117,7 @@
         "entry": 93.0,
         "stop_loss": 87.68000030517578,
         "signal_date": "2026-05-25",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "DALMIASUG.NS": {
         "entry": 356.8500061035156,
@@ -135,7 +135,7 @@
         "entry": 1128.699951171875,
         "stop_loss": 1081.9000244140625,
         "signal_date": "2026-05-18",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "DELPHIFX.NS": {
         "entry": 8.779999732971191,
@@ -165,13 +165,13 @@
         "entry": 7.829999923706055,
         "stop_loss": 7.400000095367432,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "DREAMFOLKS.NS": {
         "entry": 76.16000366210938,
         "stop_loss": 72.22000122070312,
         "signal_date": "2026-06-01",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "DSFCL.NS": {
         "entry": 24.93000030517578,
@@ -189,19 +189,19 @@
         "entry": 5875.0,
         "stop_loss": 5715.0,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "ESSENTIA.NS": {
         "entry": 1.4500000476837158,
         "stop_loss": 1.3600000143051147,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "EXCELSOFT.NS": {
         "entry": 82.30000305175781,
         "stop_loss": 78.01000213623047,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "FCSSOFT.NS": {
         "entry": 1.6200000047683716,
@@ -219,7 +219,7 @@
         "entry": 293.20001220703125,
         "stop_loss": 281.8999938964844,
         "signal_date": "2026-06-01",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "GANECOS.NS": {
         "entry": 975.0,
@@ -249,7 +249,7 @@
         "entry": 631.9000244140625,
         "stop_loss": 604.0,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "GMRP&UI.NS": {
         "entry": 102.75,
@@ -273,25 +273,25 @@
         "entry": 48.18000030517578,
         "stop_loss": 42.52000045776367,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "GUJAPOLLO.NS": {
         "entry": 404.5,
         "stop_loss": 372.20001220703125,
         "signal_date": "2026-05-18",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "GVKPIL.NS": {
         "entry": 2.8399999141693115,
         "stop_loss": 2.680000066757202,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "HAPPSTMNDS.NS": {
         "entry": 351.20001220703125,
         "stop_loss": 340.8500061035156,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "HAVISHA.NS": {
         "entry": 1.3200000524520874,
@@ -303,31 +303,31 @@
         "entry": 56.900001525878906,
         "stop_loss": 51.70000076293945,
         "signal_date": "2026-06-01",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "HDIL.NS": {
         "entry": 2.0399999618530273,
         "stop_loss": 1.9199999570846558,
         "signal_date": "2026-05-18",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "HEG.NS": {
         "entry": 571.0999755859375,
         "stop_loss": 538.0,
         "signal_date": "2026-06-01",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "HINDALCO.NS": {
         "entry": 1039.699951171875,
         "stop_loss": 970.0,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "HINDZINC.NS": {
         "entry": 579.3499755859375,
         "stop_loss": 552.5499877929688,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "IFBAGRO.NS": {
         "entry": 923.0,
@@ -351,19 +351,19 @@
         "entry": 1080.300048828125,
         "stop_loss": 1026.0,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "IRCON.NS": {
         "entry": 144.57000732421875,
         "stop_loss": 136.4199981689453,
         "signal_date": "2026-05-18",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "JAINREC.NS": {
         "entry": 411.0,
         "stop_loss": 370.0,
         "signal_date": "2026-05-25",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "JAYNECOIND.NS": {
         "entry": 90.66000366210938,
@@ -375,19 +375,19 @@
         "entry": 1168.4000244140625,
         "stop_loss": 1120.5999755859375,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "JUBLFOOD.NS": {
         "entry": 446.25,
         "stop_loss": 422.1499938964844,
         "signal_date": "2026-05-25",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "JYOTHYLAB.NS": {
         "entry": 212.25,
         "stop_loss": 202.8000030517578,
         "signal_date": "2026-05-25",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "KAYNES.NS": {
         "entry": 3418.10009765625,
@@ -405,19 +405,19 @@
         "entry": 29.09000015258789,
         "stop_loss": 23.81999969482422,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "LGHL.NS": {
         "entry": 233.5,
         "stop_loss": 225.0,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "LTM.NS": {
         "entry": 3888.300048828125,
         "stop_loss": 3737.300048828125,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "LUXIND.NS": {
         "entry": 1268.9000244140625,
@@ -429,19 +429,19 @@
         "entry": 135.0,
         "stop_loss": 125.0,
         "signal_date": "2026-06-01",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "MEDPLUS.NS": {
         "entry": 856.5999755859375,
         "stop_loss": 825.2999877929688,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "MEP.NS": {
         "entry": 0.7900000214576721,
         "stop_loss": 0.7400000095367432,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "NAGREEKCAP.NS": {
         "entry": 26.989999771118164,
@@ -453,13 +453,13 @@
         "entry": 387.6000061035156,
         "stop_loss": 357.79998779296875,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "NEUEON.NS": {
         "entry": 19.780000686645508,
         "stop_loss": 19.780000686645508,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "NIITMTS.NS": {
         "entry": 248.6999969482422,
@@ -507,7 +507,7 @@
         "entry": 57.459999084472656,
         "stop_loss": 55.099998474121094,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "OSIAHYPER.NS": {
         "entry": 3.440000057220459,
@@ -525,13 +525,13 @@
         "entry": 82.19000244140625,
         "stop_loss": 80.0,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "PARSVNATH.NS": {
         "entry": 2.9600000381469727,
         "stop_loss": 2.809999942779541,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "PATANJALI.NS": {
         "entry": 425.0,
@@ -543,13 +543,13 @@
         "entry": 4720.0,
         "stop_loss": 4570.0,
         "signal_date": "2026-05-25",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "POWERGRID.NS": {
         "entry": 304.5,
         "stop_loss": 290.20001220703125,
         "signal_date": "2026-05-18",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "RAJTV.NS": {
         "entry": 12.960000038146973,
@@ -561,7 +561,7 @@
         "entry": 243.99000549316406,
         "stop_loss": 226.0,
         "signal_date": "2026-06-01",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "REGAAL.NS": {
         "entry": 80.0,
@@ -585,19 +585,19 @@
         "entry": 19.440000534057617,
         "stop_loss": 18.100000381469727,
         "signal_date": "2026-05-25",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "RVNL.NS": {
         "entry": 280.45001220703125,
         "stop_loss": 264.54998779296875,
         "signal_date": "2026-05-18",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "SABEVENTS.NS": {
         "entry": 9.3100004196167,
         "stop_loss": 9.3100004196167,
         "signal_date": "2026-05-04",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "SAIL.NS": {
         "entry": 180.7899932861328,
@@ -615,13 +615,13 @@
         "entry": 645.8499755859375,
         "stop_loss": 620.5499877929688,
         "signal_date": "2026-05-11",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "SDBL.NS": {
         "entry": 73.98999786376953,
         "stop_loss": 69.48999786376953,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "SEAMECLTD.NS": {
         "entry": 1500.0,
@@ -639,13 +639,13 @@
         "entry": 17.540000915527344,
         "stop_loss": 16.600000381469727,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "SGL.NS": {
         "entry": 10.5,
         "stop_loss": 10.09000015258789,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "SHIVAMAUTO.NS": {
         "entry": 17.440000534057617,
@@ -675,7 +675,7 @@
         "entry": 4.03000020980835,
         "stop_loss": 3.75,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "SIMBHALS.NS": {
         "entry": 7.179999828338623,
@@ -693,7 +693,7 @@
         "entry": 43.75,
         "stop_loss": 41.04999923706055,
         "signal_date": "2026-06-01",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "SUNTV.NS": {
         "entry": 532.8499755859375,
@@ -705,13 +705,13 @@
         "entry": 731.4500122070312,
         "stop_loss": 693.5,
         "signal_date": "2026-05-25",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "TAKE.NS": {
         "entry": 32.97999954223633,
         "stop_loss": 25.600000381469727,
         "signal_date": "2026-05-11",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "TARAPUR.NS": {
         "entry": 21.030000686645508,
@@ -723,25 +723,25 @@
         "entry": 4157.0,
         "stop_loss": 3926.10009765625,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "TATASTEEL.NS": {
         "entry": 200.9499969482422,
         "stop_loss": 193.30999755859375,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "TCS.NS": {
         "entry": 2157.0,
         "stop_loss": 2055.0,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "TORNTPOWER.NS": {
         "entry": 1509.0,
         "stop_loss": 1407.0,
         "signal_date": "2026-05-25",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "TTL.NS": {
         "entry": 7.059999942779541,
@@ -759,13 +759,13 @@
         "entry": 1423.9000244140625,
         "stop_loss": 1360.0,
         "signal_date": "2026-05-11",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "VALIANTLAB.NS": {
         "entry": 69.80000305175781,
         "stop_loss": 66.19999694824219,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "VEDL.NS": {
         "entry": 306.79998779296875,
@@ -777,7 +777,7 @@
         "entry": 30.850000381469727,
         "stop_loss": 29.049999237060547,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "WEWIN.NS": {
         "entry": 50.25,
@@ -795,7 +795,7 @@
         "entry": 182.39999389648438,
         "stop_loss": 171.49000549316406,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "XELPMOC.NS": {
         "entry": 87.87000274658203,
@@ -813,12 +813,12 @@
         "entry": 458.5,
         "stop_loss": 441.1000061035156,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "ZODIAC.NS": {
         "entry": 295.0,
         "stop_loss": 282.0,
         "signal_date": "2026-06-01",
-        "status": "WAITING"
+        "status": "FAILED"
     }
 }
