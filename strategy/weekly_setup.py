@@ -21,8 +21,8 @@ def find_weekly_setup(stock):
 
     waiting = load_waiting()
 
-    # Download last 2 years weekly data
-    df = yf.download(
+    # Weekly candles
+    weekly = yf.download(
         stock,
         period="2y",
         interval="1wk",
@@ -30,55 +30,70 @@ def find_weekly_setup(stock):
         auto_adjust=False
     )
 
-    if df.empty or len(df) < 6:
+    if weekly.empty or len(weekly) < 10:
         return
 
     # Flatten MultiIndex if needed
-    if hasattr(df.columns, "nlevels") and df.columns.nlevels > 1:
-        df.columns = df.columns.get_level_values(0)
+    if hasattr(weekly.columns, "nlevels") and weekly.columns.nlevels > 1:
+        weekly.columns = weekly.columns.get_level_values(0)
 
-    # 5 EMA
-    ema5 = df["Close"].ewm(span=5, adjust=False).mean()
+    ema5 = weekly["Close"].ewm(span=5, adjust=False).mean()
 
-    # Latest COMPLETED weekly candle
-    i = len(df) - 2
+    latest_valid_signal = None
 
-    open_price = float(df["Open"].iloc[i])
-    high_price = float(df["High"].iloc[i])
-    low_price = float(df["Low"].iloc[i])
-    close_price = float(df["Close"].iloc[i])
-    ema = float(ema5.iloc[i])
+    # Ignore current unfinished week
+    for i in range(5, len(weekly) - 1):
 
-    print(
-        stock,
-        df.index[i].date(),
-        "Open =", open_price,
-        "High =", high_price,
-        "Low =", low_price,
-        "Close =", close_price,
-        "EMA =", round(ema, 2)
-    )
+        open_price = float(weekly["Open"].iloc[i])
+        high_price = float(weekly["High"].iloc[i])
+        low_price = float(weekly["Low"].iloc[i])
+        close_price = float(weekly["Close"].iloc[i])
+        ema = float(ema5.iloc[i])
 
-    # Entire candle must be below EMA
-    if not (
-        open_price < ema
-        and high_price < ema
-        and low_price < ema
-        and close_price < ema
-    ):
+        # Entire candle below EMA
+        if not (
+            open_price < ema
+            and high_price < ema
+            and low_price < ema
+            and close_price < ema
+        ):
+            continue
+
+        entry = high_price
+        stop_loss = low_price
+
+        # --------------------------------------------------
+        # Has breakout already happened in ANY later week?
+        # --------------------------------------------------
+        breakout = False
+
+        for j in range(i + 1, len(weekly) - 1):
+
+            future_high = float(weekly["High"].iloc[j])
+
+            if future_high >= entry:
+                breakout = True
+                break
+
+        if breakout:
+            continue
+
+        # Keep only the latest valid signal
+        latest_valid_signal = {
+            "entry": entry,
+            "stop_loss": stop_loss,
+            "signal_date": str(weekly.index[i].date()),
+            "status": "WAITING"
+        }
+
+    # No valid waiting setup
+    if latest_valid_signal is None:
         return
 
-    entry = high_price
-    stop_loss = low_price
+    # --------------------------------------------------
+    # Check today's price
+    # --------------------------------------------------
 
-    print("=" * 70)
-    print("LATEST COMPLETED WEEK")
-    print("Stock       :", stock)
-    print("Signal Date :", df.index[i].date())
-    print("Entry       :", entry)
-    print("Stop Loss   :", stop_loss)
-
-    # Download latest daily price
     daily = yf.download(
         stock,
         period="5d",
@@ -95,24 +110,18 @@ def find_weekly_setup(stock):
 
     current_price = float(daily["Close"].iloc[-1])
 
-    print("Current Price :", current_price)
-
-    # Skip if already crossed
-    if current_price >= entry:
-        print("ENTRY ALREADY TRIGGERED")
-        print("=" * 70)
+    # Today's price already crossed entry
+    if current_price >= latest_valid_signal["entry"]:
+        print(f"{stock} -> ENTRY ALREADY TRIGGERED")
         return
 
-    print(">>> SAVING THIS STOCK <<<")
-    print("=" * 70)
-
-    waiting[stock] = {
-        "entry": entry,
-        "stop_loss": stop_loss,
-        "signal_date": str(df.index[i].date()),
-        "status": "WAITING"
-    }
+    waiting[stock] = latest_valid_signal
 
     save_waiting(waiting)
 
-    print(f"{stock} -> WAITING SETUP SAVED")
+    print(
+        f"{stock} -> WAITING SETUP SAVED | "
+        f"Date={latest_valid_signal['signal_date']} | "
+        f"Entry={latest_valid_signal['entry']} | "
+        f"Current={current_price}"
+    )
