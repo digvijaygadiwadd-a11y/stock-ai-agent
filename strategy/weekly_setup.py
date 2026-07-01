@@ -21,7 +21,6 @@ def find_weekly_setup(stock):
 
     waiting = load_waiting()
 
-    # Weekly candles
     weekly = yf.download(
         stock,
         period="2y",
@@ -30,18 +29,18 @@ def find_weekly_setup(stock):
         auto_adjust=False
     )
 
-    if weekly.empty or len(weekly) < 10:
+    if weekly.empty or len(weekly) < 15:
         return
 
-    # Flatten MultiIndex if needed
     if hasattr(weekly.columns, "nlevels") and weekly.columns.nlevels > 1:
         weekly.columns = weekly.columns.get_level_values(0)
 
     ema5 = weekly["Close"].ewm(span=5, adjust=False).mean()
 
-    latest_valid_signal = None
+    latest_signal = None
+    latest_signal_index = -1
 
-    # Ignore current unfinished week
+    # Ignore current unfinished candle
     for i in range(5, len(weekly) - 1):
 
         open_price = float(weekly["Open"].iloc[i])
@@ -60,13 +59,10 @@ def find_weekly_setup(stock):
             continue
 
         entry = high_price
-        stop_loss = low_price
 
-        # --------------------------------------------------
-        # Has breakout already happened in ANY later week?
-        # --------------------------------------------------
         breakout = False
 
+        # Check every future completed candle
         for j in range(i + 1, len(weekly) - 1):
 
             future_high = float(weekly["High"].iloc[j])
@@ -78,21 +74,24 @@ def find_weekly_setup(stock):
         if breakout:
             continue
 
-        # Keep only the latest valid signal
-        latest_valid_signal = {
+        latest_signal = {
             "entry": entry,
-            "stop_loss": stop_loss,
+            "stop_loss": low_price,
             "signal_date": str(weekly.index[i].date()),
             "status": "WAITING"
         }
 
-    # No valid waiting setup
-    if latest_valid_signal is None:
+        latest_signal_index = i
+
+    if latest_signal is None:
         return
 
-    # --------------------------------------------------
-    # Check today's price
-    # --------------------------------------------------
+    # Ignore setups older than 8 completed weeks
+    weeks_old = (len(weekly) - 2) - latest_signal_index
+
+    if weeks_old > 8:
+        print(f"{stock} -> SIGNAL TOO OLD ({weeks_old} weeks)")
+        return
 
     daily = yf.download(
         stock,
@@ -110,18 +109,17 @@ def find_weekly_setup(stock):
 
     current_price = float(daily["Close"].iloc[-1])
 
-    # Today's price already crossed entry
-    if current_price >= latest_valid_signal["entry"]:
+    if current_price >= latest_signal["entry"]:
         print(f"{stock} -> ENTRY ALREADY TRIGGERED")
         return
 
-    waiting[stock] = latest_valid_signal
+    waiting[stock] = latest_signal
 
     save_waiting(waiting)
 
     print(
         f"{stock} -> WAITING SETUP SAVED | "
-        f"Date={latest_valid_signal['signal_date']} | "
-        f"Entry={latest_valid_signal['entry']} | "
+        f"Date={latest_signal['signal_date']} | "
+        f"Entry={latest_signal['entry']} | "
         f"Current={current_price}"
     )
