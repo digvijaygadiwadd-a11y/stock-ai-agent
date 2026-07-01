@@ -40,7 +40,7 @@ def find_weekly_setup(stock):
     latest_signal = None
     latest_signal_index = -1
 
-    # Ignore current unfinished candle
+    # Ignore current unfinished weekly candle
     for i in range(5, len(weekly) - 1):
 
         open_price = float(weekly["Open"].iloc[i])
@@ -62,7 +62,7 @@ def find_weekly_setup(stock):
 
         breakout = False
 
-        # Check every future completed candle
+        # Ignore if breakout already happened
         for j in range(i + 1, len(weekly) - 1):
 
             future_high = float(weekly["High"].iloc[j])
@@ -86,10 +86,10 @@ def find_weekly_setup(stock):
     if latest_signal is None:
         return
 
-    # Ignore setups older than 8 completed weeks
+    # Reject setups older than 8 completed weeks
     weeks_old = (len(weekly) - 2) - latest_signal_index
 
-    if weeks_old > 8:
+    if weeks_old >= 8:
         print(f"{stock} -> SIGNAL TOO OLD ({weeks_old} weeks)")
         return
 
@@ -109,16 +109,31 @@ def find_weekly_setup(stock):
 
     current_price = float(daily["Close"].iloc[-1])
 
+    # Ignore already triggered setups
     if current_price >= latest_signal["entry"]:
         print(f"{stock} -> ENTRY ALREADY TRIGGERED")
         return
+
+    # ====================================
+    # NEW LOGIC
+    # ====================================
+
+    if stock in waiting:
+
+        existing = waiting[stock]
+
+        if existing["status"] == "WAITING":
+
+            print(f"{stock} -> ALREADY WAITING")
+
+            return
 
     waiting[stock] = latest_signal
 
     save_waiting(waiting)
 
     print(
-        f"{stock} -> WAITING SETUP SAVED | "
+        f"{stock} -> NEW WAITING SETUP | "
         f"Date={latest_signal['signal_date']} | "
         f"Entry={latest_signal['entry']} | "
         f"Current={current_price}"
