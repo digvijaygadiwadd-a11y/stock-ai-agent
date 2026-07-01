@@ -15,99 +15,87 @@ def save_waiting(data):
         json.dump(data, f, indent=4)
 
 
-def get_latest_price(stock):
+waiting = load_waiting()
+
+changed = False
+
+print(f"Found {len(waiting)} waiting stocks.\n")
+
+for stock, data in waiting.items():
+
+    if data["status"] != "WAITING":
+        continue
 
     df = yf.download(
         stock,
-        period="5d",
+        period="10d",
         interval="1d",
         progress=False,
         auto_adjust=False
     )
 
-    if df.empty:
-        return None
+    if df.empty or len(df) < 2:
+        continue
+
+    if hasattr(df.columns, "nlevels") and df.columns.nlevels > 1:
+        df.columns = df.columns.get_level_values(0)
 
     close = df["Close"]
 
-    if hasattr(close, "columns"):
-        close = close.iloc[:, 0]
+    yesterday = float(close.iloc[-2])
+    today = float(close.iloc[-1])
 
-    return float(close.iloc[-1])
-
-
-waiting = load_waiting()
-
-print(f"Found {len(waiting)} waiting stocks.")
-
-changed = False
-
-for stock, data in waiting.items():
-
-    latest_price = get_latest_price(stock)
-
-    if latest_price is None:
-        continue
+    entry = data["entry"]
+    stop = data["stop_loss"]
 
     print(
-        f"{stock} | Current={latest_price} | "
-        f"Entry={data['entry']} | "
-        f"SL={data['stop_loss']} | "
-        f"Status={data['status']}"
+        f"{stock} | Yesterday={yesterday} | Today={today} | Entry={entry}"
     )
 
-    # Skip completed setups
-    if data["status"] != "WAITING":
-        continue
-
+    # -----------------------------
     # FAILED
-    if latest_price <= data["stop_loss"]:
+    # -----------------------------
+    if today <= stop:
 
-        message = f"""
-❌ SETUP FAILED
+        send_message(
+f"""❌ SETUP FAILED
 
 Stock : {stock}
 
-Current Price : ₹{latest_price}
+Current Price : ₹{today}
 
-Stop Loss : ₹{data['stop_loss']}
+Stop Loss : ₹{stop}
 """
-
-        send_message(message)
+        )
 
         data["status"] = "FAILED"
-
         changed = True
-
-        print(f"FAILED -> {stock}")
-
         continue
 
-    # BUY
-    if latest_price >= data["entry"]:
+    # -----------------------------
+    # TRUE BREAKOUT
+    # -----------------------------
+    if yesterday < entry and today >= entry:
 
-        message = f"""
-🚀 BUY SIGNAL
+        send_message(
+f"""🚀 BUY SIGNAL
 
 Stock : {stock}
 
-Entry : ₹{data['entry']}
+Entry : ₹{entry}
 
-Current Price : ₹{latest_price}
+Current Price : ₹{today}
 
-Stop Loss : ₹{data['stop_loss']}
+Stop Loss : ₹{stop}
 """
-
-        send_message(message)
+        )
 
         data["status"] = "BOUGHT"
-
         changed = True
 
         print(f"BUY -> {stock}")
 
 if changed:
-
     save_waiting(waiting)
 
-    print("waiting_signals.json updated.")
+print("Breakout Monitor Completed")
