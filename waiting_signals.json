@@ -15,7 +15,7 @@
         "entry": 299.0,
         "stop_loss": 220.0500030517578,
         "signal_date": "2026-04-27",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "ABMINTLLTD.NS": {
         "entry": 43.220001220703125,
@@ -99,7 +99,7 @@
         "entry": 5370.0,
         "stop_loss": 5164.5,
         "signal_date": "2026-05-25",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "CHEMFAB.NS": {
         "entry": 385.0,
@@ -123,13 +123,13 @@
         "entry": 356.8500061035156,
         "stop_loss": 330.0,
         "signal_date": "2026-05-18",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "DAVANGERE.NS": {
         "entry": 3.6600000858306885,
         "stop_loss": 3.559999942779541,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "DCMSHRIRAM.NS": {
         "entry": 1128.699951171875,
@@ -153,7 +153,7 @@
         "entry": 20.34000015258789,
         "stop_loss": 18.799999237060547,
         "signal_date": "2026-05-25",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "DPABHUSHAN.NS": {
         "entry": 986.5,
@@ -237,7 +237,7 @@
         "entry": 2.2899999618530273,
         "stop_loss": 2.200000047683716,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "GMBREW.NS": {
         "entry": 977.7000122070312,
@@ -345,7 +345,7 @@
         "entry": 95.20999908447266,
         "stop_loss": 87.9000015258789,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "INFY.NS": {
         "entry": 1080.300048828125,
@@ -447,7 +447,7 @@
         "entry": 26.989999771118164,
         "stop_loss": 24.600000381469727,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "NATIONALUM.NS": {
         "entry": 387.6000061035156,
@@ -477,7 +477,7 @@
         "entry": 25.950000762939453,
         "stop_loss": 24.290000915527344,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "NTPCGREEN.NS": {
         "entry": 97.70999908447266,
@@ -573,7 +573,7 @@
         "entry": 87.30000305175781,
         "stop_loss": 80.91000366210938,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "RNBDENIMS.NS": {
         "entry": 11.8100004196167,
@@ -633,7 +633,7 @@
         "entry": 21.350000381469727,
         "stop_loss": 19.0,
         "signal_date": "2026-06-01",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "SETCO.NS": {
         "entry": 17.540000915527344,
@@ -651,7 +651,7 @@
         "entry": 17.440000534057617,
         "stop_loss": 16.149999618530273,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "SHIVATEX.NS": {
         "entry": 155.89999389648438,
@@ -663,7 +663,7 @@
         "entry": 141.44000244140625,
         "stop_loss": 135.60000610351562,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "SIGMA.NS": {
         "entry": 39.5,
@@ -687,7 +687,7 @@
         "entry": 192.0,
         "stop_loss": 184.75,
         "signal_date": "2026-06-15",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "SRTL.NS": {
         "entry": 43.75,
@@ -783,7 +783,7 @@
         "entry": 50.25,
         "stop_loss": 47.599998474121094,
         "signal_date": "2026-06-22",
-        "status": "WAITING"
+        "status": "FAILED"
     },
     "WHIRLPOOL.NS": {
         "entry": 841.5,
