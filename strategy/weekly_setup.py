@@ -21,7 +21,7 @@ def find_weekly_setup(stock):
 
     waiting = load_waiting()
 
-    # Weekly data
+    # Download last 2 years weekly data
     df = yf.download(
         stock,
         period="2y",
@@ -37,9 +37,10 @@ def find_weekly_setup(stock):
     if hasattr(df.columns, "nlevels") and df.columns.nlevels > 1:
         df.columns = df.columns.get_level_values(0)
 
+    # 5 EMA
     ema5 = df["Close"].ewm(span=5, adjust=False).mean()
 
-    # Ignore current unfinished week
+    # Latest COMPLETED weekly candle
     i = len(df) - 2
 
     open_price = float(df["Open"].iloc[i])
@@ -58,7 +59,7 @@ def find_weekly_setup(stock):
         "EMA =", round(ema, 2)
     )
 
-    # Entire weekly candle must be below EMA
+    # Entire candle must be below EMA
     if not (
         open_price < ema
         and high_price < ema
@@ -70,7 +71,14 @@ def find_weekly_setup(stock):
     entry = high_price
     stop_loss = low_price
 
-    # Latest daily close
+    print("=" * 70)
+    print("LATEST COMPLETED WEEK")
+    print("Stock       :", stock)
+    print("Signal Date :", df.index[i].date())
+    print("Entry       :", entry)
+    print("Stop Loss   :", stop_loss)
+
+    # Download latest daily price
     daily = yf.download(
         stock,
         period="5d",
@@ -87,10 +95,16 @@ def find_weekly_setup(stock):
 
     current_price = float(daily["Close"].iloc[-1])
 
-    # Ignore if entry already triggered
+    print("Current Price :", current_price)
+
+    # Skip if already crossed
     if current_price >= entry:
-        print(f"{stock} -> ENTRY ALREADY TRIGGERED")
+        print("ENTRY ALREADY TRIGGERED")
+        print("=" * 70)
         return
+
+    print(">>> SAVING THIS STOCK <<<")
+    print("=" * 70)
 
     waiting[stock] = {
         "entry": entry,
