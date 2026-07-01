@@ -41,56 +41,79 @@ for stock, data in waiting.items():
         df.columns = df.columns.get_level_values(0)
 
     close = df["Close"]
+    low = df["Low"]
 
-    yesterday = float(close.iloc[-2])
-    today = float(close.iloc[-1])
+    if hasattr(close, "columns"):
+        close = close.iloc[:, 0]
 
-    entry = data["entry"]
-    stop = data["stop_loss"]
+    if hasattr(low, "columns"):
+        low = low.iloc[:, 0]
+
+    yesterday_close = float(close.iloc[-2])
+    today_close = float(close.iloc[-1])
+    today_low = float(low.iloc[-1])
+
+    entry = float(data["entry"])
+    stop = float(data["stop_loss"])
 
     print(
-        f"{stock} | Yesterday={yesterday} | Today={today} | Entry={entry}"
+        f"{stock} | Yesterday={yesterday_close} | "
+        f"Today={today_close} | "
+        f"Low={today_low} | "
+        f"Entry={entry} | "
+        f"SL={stop}"
     )
 
-    # -----------------------------
+    # ==========================================
     # FAILED
-    # -----------------------------
-    if today <= stop:
+    # ==========================================
 
-        send_message(
-f"""❌ SETUP FAILED
+    if today_low <= stop:
 
-Stock : {stock}
-
-Current Price : ₹{today}
-
-Stop Loss : ₹{stop}
-"""
-        )
-
-        data["status"] = "FAILED"
-        changed = True
-        continue
-
-    # -----------------------------
-    # TRUE BREAKOUT
-    # -----------------------------
-    if yesterday < entry and today >= entry:
-
-        send_message(
-f"""🚀 BUY SIGNAL
+        message = f"""
+❌ SETUP FAILED
 
 Stock : {stock}
 
 Entry : ₹{entry}
 
-Current Price : ₹{today}
+Today's Low : ₹{today_low}
 
 Stop Loss : ₹{stop}
 """
-        )
+
+        send_message(message)
+
+        data["status"] = "FAILED"
+
+        changed = True
+
+        print(f"FAILED -> {stock}")
+
+        continue
+
+    # ==========================================
+    # TRUE BREAKOUT
+    # ==========================================
+
+    if yesterday_close < entry and today_close >= entry:
+
+        message = f"""
+🚀 BUY SIGNAL
+
+Stock : {stock}
+
+Entry : ₹{entry}
+
+Today's Close : ₹{today_close}
+
+Stop Loss : ₹{stop}
+"""
+
+        send_message(message)
 
         data["status"] = "BOUGHT"
+
         changed = True
 
         print(f"BUY -> {stock}")
@@ -98,4 +121,4 @@ Stop Loss : ₹{stop}
 if changed:
     save_waiting(waiting)
 
-print("Breakout Monitor Completed")
+print("\nBreakout Monitor Completed")
