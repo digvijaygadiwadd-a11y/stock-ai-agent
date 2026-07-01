@@ -1,25 +1,30 @@
 import json
+import os
 import yfinance as yf
 from utils.telegram_sender import send_message
 
 WAITING_FILE = "waiting_signals.json"
+HISTORY_FILE = "trade_history.json"
 
 
-def load_waiting():
-    with open(WAITING_FILE, "r") as f:
-        return json.load(f)
+def load_json(file_name):
+    if os.path.exists(file_name):
+        with open(file_name, "r") as f:
+            return json.load(f)
+    return {}
 
 
-def save_waiting(data):
-    with open(WAITING_FILE, "w") as f:
+def save_json(file_name, data):
+    with open(file_name, "w") as f:
         json.dump(data, f, indent=4)
 
 
-waiting = load_waiting()
-
-changed = False
+waiting = load_json(WAITING_FILE)
+history = load_json(HISTORY_FILE)
 
 print(f"Found {len(waiting)} waiting stocks.\n")
+
+completed = []
 
 for stock, data in waiting.items():
 
@@ -65,9 +70,9 @@ for stock, data in waiting.items():
         f"SL={stop}"
     )
 
-    # ==========================
+    # ===========================
     # FAILED
-    # ==========================
+    # ===========================
 
     if today_low <= stop:
 
@@ -86,16 +91,19 @@ Stop Loss : ₹{stop}
         send_message(message)
 
         data["status"] = "FAILED"
+        data["exit_price"] = current_price
 
-        changed = True
+        history[stock] = data
+
+        completed.append(stock)
 
         print(f"FAILED -> {stock}")
 
         continue
 
-    # ==========================
-    # TRUE BREAKOUT
-    # ==========================
+    # ===========================
+    # BUY
+    # ===========================
 
     if yesterday_close < entry and current_price >= entry:
 
@@ -114,12 +122,21 @@ Stop Loss : ₹{stop}
         send_message(message)
 
         data["status"] = "BOUGHT"
+        data["buy_price"] = current_price
 
-        changed = True
+        history[stock] = data
+
+        completed.append(stock)
 
         print(f"BUY -> {stock}")
 
-if changed:
-    save_waiting(waiting)
+# Remove completed stocks from waiting list
+for stock in completed:
+    waiting.pop(stock, None)
 
-print("\nBreakout Monitor Completed")
+save_json(WAITING_FILE, waiting)
+save_json(HISTORY_FILE, history)
+
+print("\nWaiting Stocks :", len(waiting))
+print("Trade History :", len(history))
+print("Breakout Monitor Completed")
