@@ -16,6 +16,7 @@ def save_waiting(data):
 
 
 def get_latest_price(stock):
+
     df = yf.download(
         stock,
         period="5d",
@@ -37,7 +38,7 @@ def get_latest_price(stock):
 
 waiting = load_waiting()
 
-print(f"Found {len(waiting)} waiting stocks.\n")
+print(f"Found {len(waiting)} waiting stocks.")
 
 changed = False
 
@@ -48,12 +49,42 @@ for stock, data in waiting.items():
     if latest_price is None:
         continue
 
-    print(f"{stock}  Current={latest_price}  Entry={data['entry']}")
+    print(
+        f"{stock} | Current={latest_price} | "
+        f"Entry={data['entry']} | "
+        f"SL={data['stop_loss']} | "
+        f"Status={data['status']}"
+    )
 
-    if (
-        data["status"] == "WAITING"
-        and latest_price >= data["entry"]
-    ):
+    # Skip completed setups
+    if data["status"] != "WAITING":
+        continue
+
+    # FAILED
+    if latest_price <= data["stop_loss"]:
+
+        message = f"""
+❌ SETUP FAILED
+
+Stock : {stock}
+
+Current Price : ₹{latest_price}
+
+Stop Loss : ₹{data['stop_loss']}
+"""
+
+        send_message(message)
+
+        data["status"] = "FAILED"
+
+        changed = True
+
+        print(f"FAILED -> {stock}")
+
+        continue
+
+    # BUY
+    if latest_price >= data["entry"]:
 
         message = f"""
 🚀 BUY SIGNAL
@@ -73,7 +104,10 @@ Stop Loss : ₹{data['stop_loss']}
 
         changed = True
 
-        print(f"BUY SENT -> {stock}")
+        print(f"BUY -> {stock}")
 
 if changed:
+
     save_waiting(waiting)
+
+    print("waiting_signals.json updated.")
