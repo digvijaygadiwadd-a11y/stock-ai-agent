@@ -3,6 +3,9 @@ name: Breakout Monitor
 on:
   workflow_dispatch:
 
+  schedule:
+    - cron: "15 10 * * 1-5"
+
 jobs:
   breakout:
 
