@@ -54,6 +54,7 @@ def find_weekly_setup(stock):
         )
 
         # Entire candle must be below EMA
+               # Entire candle must be below EMA
         if (
             df["Open"].iloc[i] < ema5.iloc[i]
             and df["High"].iloc[i] < ema5.iloc[i]
@@ -61,10 +62,25 @@ def find_weekly_setup(stock):
             and df["Close"].iloc[i] < ema5.iloc[i]
         ):
 
-            print("VALID SIGNAL FOUND:", stock, df.index[i].date())
+            entry = float(df["High"].iloc[i])
+
+            # Check whether breakout already happened after the signal candle
+            breakout_happened = False
+
+            for j in range(i + 1, len(df)):
+
+                if float(df["High"].iloc[j]) >= entry:
+                    breakout_happened = True
+                    break
+
+            # Skip this setup if breakout already happened
+            if breakout_happened:
+                continue
+
+            print("VALID WAITING SETUP:", stock, df.index[i].date())
 
             latest_signal = {
-                "entry": float(df["High"].iloc[i]),
+                "entry": entry,
                 "stop_loss": float(df["Low"].iloc[i]),
                 "signal_date": str(df.index[i].date()),
                 "status": "WAITING"
