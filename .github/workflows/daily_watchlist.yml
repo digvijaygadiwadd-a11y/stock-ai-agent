@@ -25,4 +25,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Watchlist
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python daily_watchlist.py
